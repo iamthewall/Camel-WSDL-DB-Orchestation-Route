@@ -1,0 +1,10 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:typ="http://latinus.net/wsDinardap/types">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <typ:consulta_cedula>
+         <i_cedula>${headers.cedula}</i_cedula>
+         <i_usuario>dinardat</i_usuario>
+         <i_clave>Cn32lol2*</i_clave>
+      </typ:consulta_cedula>
+   </soapenv:Body>
+</soapenv:Envelope>

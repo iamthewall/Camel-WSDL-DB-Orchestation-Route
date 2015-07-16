@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="consultaTituloPortType" targetNamespace="http://latinus.net/senescyt" xmlns:ns1="http://latinus.net/senescyt/types" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://latinus.net/senescyt" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema targetNamespace="http://latinus.net/senescyt/types" version="1.0" xmlns:tns="http://latinus.net/senescyt/types" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="cedula" type="xs:string"/>
+<xs:element name="put_titulos">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="cedula" type="xs:string"/>
+<xs:element ref="tns:titulos"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="senescyt_fault">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="errorMessage" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="titulos">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="cedula" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="niveltitulos" nillable="true" type="tns:niveltitulos_type"/>
+<xs:element name="fechaCache" nillable="true" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="niveltitulos_type">
+<xs:sequence>
+<xs:element name="nivel" nillable="true" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="titulo" nillable="true" type="tns:titulo_type"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="titulo_type">
+<xs:sequence>
+<xs:element name="fechaGrado" nillable="true" type="xs:date"/>
+<xs:element name="fechaRegistro" nillable="true" type="xs:date"/>
+<xs:element name="ies" nillable="true" type="xs:string"/>
+<xs:element name="nombreTitulo" nillable="true" type="xs:string"/>
+<xs:element name="numeroRegistro" nillable="true" type="xs:string"/>
+<xs:element name="tipo" nillable="true" type="xs:string"/>
+<xs:element name="tipoExtrajeroColegio" nillable="true" type="xs:string"/>
+<xs:element name="iesReconocimiento" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="putTituloResponse">
+    <wsdl:part element="ns1:titulos" name="return">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultaTitulo">
+    <wsdl:part element="ns1:cedula" name="cedula">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="consultaTituloResponse">
+    <wsdl:part element="ns1:titulos" name="return">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PutTituloFault">
+    <wsdl:part element="ns1:senescyt_fault" name="PutTituloFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="putTitulo">
+    <wsdl:part element="ns1:put_titulos" name="put_titulos">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ConsultaTituloFault">
+    <wsdl:part element="ns1:senescyt_fault" name="ConsultaTituloFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="consultaTituloPortType">
+    <wsdl:operation name="consultaTitulo">
+      <wsdl:input message="tns:consultaTitulo" name="consultaTitulo">
+    </wsdl:input>
+      <wsdl:output message="tns:consultaTituloResponse" name="consultaTituloResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ConsultaTituloFault" name="ConsultaTituloFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="putTitulo">
+      <wsdl:input message="tns:putTitulo" name="putTitulo">
+    </wsdl:input>
+      <wsdl:output message="tns:putTituloResponse" name="putTituloResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:PutTituloFault" name="PutTituloFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="consultaTituloPortTypeSoapBinding" type="tns:consultaTituloPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="consultaTitulo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="consultaTitulo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="consultaTituloResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ConsultaTituloFault">
+        <soap:fault name="ConsultaTituloFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="putTitulo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="putTitulo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="putTituloResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="PutTituloFault">
+        <soap:fault name="PutTituloFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="consultaTituloPortType">
+    <wsdl:port binding="tns:consultaTituloPortTypeSoapBinding" name="consultaTituloPortTypePort">
+      <soap:address location="http://10.180.1.143/senescyt/ws_senescyt"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

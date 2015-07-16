@@ -1,0 +1,21 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Body>
+      <ns2:Envelope xmlns:ns2="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns3="http://sei.dinardap.info.com/">
+         <ns2:Body>
+            <ns3:validarResponse>
+               <return>
+               		DATOS DE CIVIL
+               		${properties.responseCivil}
+               		
+               		DATOS DE CIENCIA Y TECNOLOGÍA (TÍTULOS)
+               		${headers.responseSenescyt}
+               		
+               		DATOS DE CNE
+               		${headers.responseCNE}
+               		
+               </return>
+            </ns3:validarResponse>
+         </ns2:Body>
+      </ns2:Envelope>
+   </soap:Body>
+</soap:Envelope>

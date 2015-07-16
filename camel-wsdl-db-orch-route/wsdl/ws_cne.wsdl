@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8'?><definitions targetNamespace="http://latinus.net/wsDinardap" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://latinus.net/wsDinardap" xmlns:x1="http://latinus.net/wsDinardap/types" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <types>
+<xsd:schema targetNamespace="http://latinus.net/wsDinardap/types" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://latinus.net/wsDinardap/types" xmlns:x1="http://latinus.net/wsDinardap/types" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+            <element name="consulta_cedula">
+                <complexType>
+                    <sequence>
+                        <element name="i_cedula" type="string"/>
+                        <element name="i_usuario" type="string"/>
+                        <element name="i_clave" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="cne">
+                <complexType>
+                    <sequence>
+                        <element name="error" type="int"/>
+                        <element name="etiqueta" type="string"/>
+                        <element name="provincia" type="string"/>
+                        <element name="canton" type="string"/>
+                        <element name="parroquia" type="string"/>
+                        <element name="recinto" type="string"/>
+                        <element name="cedula" type="string"/>
+                        <element name="nombre" type="string"/>
+                        <element name="fecha" type="string"/>
+                        <element name="sufrago" type="string"/>
+                        <element name="multa" type="double"/>
+                        <element name="partido" type="string"/>
+                        <element name="tipo" type="string"/>
+                        <element name="certificado" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="put_cne">
+                <complexType>
+                    <sequence>
+                        <element ref="tns:consulta_cedula"/>
+                        <element ref="tns:cne"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="consulta_cedula_fault">
+                <complexType>
+                    <all>
+                        <element name="errorMessage" type="string"/>
+                    </all>
+                </complexType>
+
+            </element>
+
+            <element name="put_cedula_fault">
+                <complexType>
+                    <all>
+                        <element name="errorMessage" type="string"/>
+                    </all>
+                </complexType>
+            </element>
+
+            <!--element name="consulta_cedula_papeleta">
+                <complexType>
+                    <sequence>
+                        <element name="i_cedula" type="string"/>
+                        <element name="i_papeleta" type="string"/>
+                        <element name="i_usuario" type="string"/>
+                        <element name="i_clave" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="return" type="string"/-->
+
+        </xsd:schema>
+  </types>
+  <message name="put_cedulaFault">
+    <part element="x1:put_cne" name="put_cne_fault">
+    </part>
+  </message>
+  <message name="consulta_cedulaRequest">
+    <part element="x1:consulta_cedula" name="consulta_cedula">
+    </part>
+  </message>
+  <message name="consulta_cedulaResponse">
+    <part element="x1:cne" name="cne">
+    </part>
+  </message>
+  <message name="put_cedulaRequest">
+    <part element="x1:put_cne" name="put_cne">
+    </part>
+  </message>
+  <message name="put_cedulaResponse">
+    <part element="x1:cne" name="put_cne">
+    </part>
+  </message>
+  <message name="consulta_cedulaFault">
+    <part element="x1:cne" name="consulta_cedula_fault">
+    </part>
+  </message>
+  <portType name="CNE_direlEctoralPortType">
+    <operation name="put_cedula">
+      <input message="tns:put_cedulaRequest">
+    </input>
+      <output message="tns:put_cedulaResponse">
+    </output>
+      <fault message="tns:put_cedulaFault" name="fault">
+    </fault>
+    </operation>
+    <operation name="consulta_cedula">
+      <input message="tns:consulta_cedulaRequest">
+    </input>
+      <output message="tns:consulta_cedulaResponse">
+    </output>
+      <fault message="tns:consulta_cedulaFault" name="fault">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="CNE_direlEctoralBinding" type="tns:CNE_direlEctoralPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="consulta_cedula">
+      <soap:operation style="document"/>
+      <input>
+        <soap:body namespace="http://latinus.net/wsDinardap" use="literal"/>
+      </input>
+      <output>
+        <soap:body namespace="http://latinus.net/wsDinardap" use="literal"/>
+      </output>
+      <fault name="fault">
+    <soap:body namespace="http://latinus.net/wsDinardap" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="put_cedula">
+      <input>
+        <soap:body namespace="http://latinus.net/wsDinardap" use="literal"/>
+      </input>
+      <output>
+        <soap:body namespace="http://latinus.net/wsDinardap" use="literal"/>
+      </output>
+      <fault name="fault">
+    <soap:body namespace="http://latinus.net/wsDinardap" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="CNE_direlEctoral">
+    <port binding="tns:CNE_direlEctoralBinding" name="CNE_direlEctoralPort">
+      <soap:address location="http://192.168.210.253/cne/ws_cne"/>
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="RegistroCivilService" targetNamespace="http://www.dinardap.gob.ec/RegistroCivilService/" xmlns:ns1="http://www.dinardap.gob.ec/RegistroCivilService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema targetNamespace="http://www.dinardap.gob.ec/RegistroCivilService/" version="1.0" xmlns:tns="http://www.dinardap.gob.ec/RegistroCivilService/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="cedula">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="cedula" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="cedulados">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="cedula" type="xs:string"/>
+<xs:element name="nombre" type="xs:string"/>
+<xs:element name="genero" type="xs:string"/>
+<xs:element name="condicionCiudadano" type="xs:string"/>
+<xs:element name="fechaNacimiento" type="xs:string"/>
+<xs:element name="lugarNacimiento" type="xs:string"/>
+<xs:element name="nacionalidad" type="xs:string"/>
+<xs:element name="estadoCivil" type="xs:string"/>
+<xs:element name="individualDactilar" type="xs:string"/>
+<xs:element name="conyuge" type="xs:string"/>
+<xs:element name="nombrePadre" type="xs:string"/>
+<xs:element name="nacionalidadPadre" type="xs:string"/>
+<xs:element name="nombreMadre" type="xs:string"/>
+<xs:element name="nacionalidadMadre" type="xs:string"/>
+<xs:element name="domicilio" type="xs:string"/>
+<xs:element name="callesDomicilio" type="xs:string"/>
+<xs:element name="numeroCasa" type="xs:string"/>
+<xs:element name="fechaMatrimonio" type="xs:string"/>
+<xs:element name="lugarMatrimonio" type="xs:string"/>
+<xs:element name="fechaDefuncion" type="xs:string"/>
+<xs:element name="observaciones" type="xs:string"/>
+<xs:element name="fechaInscripcionDefuncion" type="xs:string"/>
+<xs:element name="fechaCache" nillable="true" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="ceduladosFault">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="ceduladosFault" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="put_cedulados">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="cedula" type="xs:string"/>
+<xs:element ref="tns:cedulados"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="put_ceduladosFault">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="ceduladosFault" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getDatosRegistroCivilResponse">
+    <wsdl:part element="ns1:cedulados" name="cedulados">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDatosRegistroCivil">
+    <wsdl:part element="ns1:cedula" name="cedula">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PutDatosRegistroCivilFaultMsg">
+    <wsdl:part element="ns1:put_ceduladosFault" name="PutDatosRegistroCivilFaultMsg">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetDatosRegistroCivilFaultMsg">
+    <wsdl:part element="ns1:ceduladosFault" name="GetDatosRegistroCivilFaultMsg">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="putDatosRegistroCivil">
+    <wsdl:part element="ns1:put_cedulados" name="put_cedulados">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="putDatosRegistroCivilResponse">
+    <wsdl:part element="ns1:cedulados" name="put_cedulados">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="RegistroCivilService">
+    <wsdl:operation name="getDatosRegistroCivil">
+      <wsdl:input message="ns1:getDatosRegistroCivil" name="getDatosRegistroCivil">
+    </wsdl:input>
+      <wsdl:output message="ns1:getDatosRegistroCivilResponse" name="getDatosRegistroCivilResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:GetDatosRegistroCivilFaultMsg" name="GetDatosRegistroCivilFaultMsg">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="putDatosRegistroCivil">
+      <wsdl:input message="ns1:putDatosRegistroCivil" name="putDatosRegistroCivil">
+    </wsdl:input>
+      <wsdl:output message="ns1:putDatosRegistroCivilResponse" name="putDatosRegistroCivilResponse">
+    </wsdl:output>
+      <wsdl:fault message="ns1:PutDatosRegistroCivilFaultMsg" name="PutDatosRegistroCivilFaultMsg">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

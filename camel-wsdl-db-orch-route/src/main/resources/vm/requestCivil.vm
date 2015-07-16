@@ -1,0 +1,8 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:reg="http://www.dinardap.gob.ec/RegistroCivilService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <reg:cedula>
+         <cedula>${headers.cedula}</cedula>
+      </reg:cedula>
+   </soapenv:Body>
+</soapenv:Envelope>

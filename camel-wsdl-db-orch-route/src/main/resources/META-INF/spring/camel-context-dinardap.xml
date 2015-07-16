@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
+	xmlns:cxf="http://camel.apache.org/schema/cxf" xmlns:context="http://www.springframework.org/schema/context"
+
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+	   http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Uso @Autowired -->
+	<context:annotation-config />
+
+	<!-- CIVIL -->
+	<!-- <cxf:cxfEndpoint id="wsCivil" address="http://192.168.233.250/civil/ws_civil" 
+		serviceClass="ec.gob.dinardap.registrocivilservice.RegistroCivilService"> 
+		<cxf:properties> <entry key="dataFormat" value="MESSAGE"/> <entry key="headerFilterStrategy" 
+		value="#dropAllMessageHeadersStrategy"/> <entry key="defaultOperationName" 
+		value="getDatosRegistroCivil"/> </cxf:properties> </cxf:cxfEndpoint> -->
+
+	<cxf:cxfEndpoint id="wsCivil"
+		address="http://localhost:8088/mockcivil_direlEctoralPortTypeSoapBinding?WSDL"
+		serviceClass="ec.gob.dinardap.registrocivilservice.RegistroCivilService">
+		<cxf:properties>
+			<entry key="dataFormat" value="MESSAGE" />
+			<entry key="headerFilterStrategy" value="#dropAllMessageHeadersStrategy" />
+			<entry key="defaultOperationName" value="getDatosRegistroCivil" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- SENESCYT -->
+	<!-- <cxf:cxfEndpoint id="wsSenescyt" address="http://10.180.1.143/senescyt/ws_senescyt" 
+		serviceClass="net.latinus.senescyt.ConsultaTituloPortType"> <cxf:properties> 
+		<entry key="dataFormat" value="MESSAGE"/> <entry key="headerFilterStrategy" 
+		value="#dropAllMessageHeadersStrategy"/> <entry key="defaultOperationName" 
+		value="consultaTitulo"/> </cxf:properties> </cxf:cxfEndpoint> -->
+
+	<cxf:cxfEndpoint id="wsSenescyt"
+		address="http://localhost:8088/mockconsultaTituloPortTypeSoapBinding?WSDL"
+		serviceClass="net.latinus.senescyt.ConsultaTituloPortType">
+		<cxf:properties>
+			<entry key="dataFormat" value="MESSAGE" />
+			<entry key="headerFilterStrategy" value="#dropAllMessageHeadersStrategy" />
+			<entry key="defaultOperationName" value="consultaTitulo" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- CNE -->
+	<!-- <cxf:cxfEndpoint id="wsCNE" address="http://192.168.210.253/cne/ws_cne" 
+		serviceClass="net.latinus.wsdinardap.CNEDirelEctoralPortType"> <cxf:properties> 
+		<entry key="dataFormat" value="MESSAGE"/> <entry key="headerFilterStrategy" 
+		value="#dropAllMessageHeadersStrategy"/> <entry key="defaultOperationName" 
+		value="consulta_cedula"/> </cxf:properties> </cxf:cxfEndpoint> -->
+
+	<cxf:cxfEndpoint id="wsCNE"
+		address="http://localhost:8088/mockCNE_direlEctoralBinding?WSDL"
+		serviceClass="net.latinus.wsdinardap.CNEDirelEctoralPortType">
+		<cxf:properties>
+			<entry key="dataFormat" value="MESSAGE" />
+			<entry key="headerFilterStrategy" value="#dropAllMessageHeadersStrategy" />
+			<entry key="defaultOperationName" value="consulta_cedula" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
+
+	<!-- ENDPOINT DE ENTRADA -->
+	<cxf:cxfEndpoint id="DinardapServiceEndpoint" address="http://localhost:8080/dinardap"
+		endpointName="tns:DinardapServiceImpPort" serviceName="tns:DinardapServiceImpService"
+		serviceClass="com.info.dinardap.sei.DinardapService" wsdlURL="wsdl/validar.wsdl"
+		xmlns:tns="http://sei.dinardap.info.com/" />
+
+	<bean id="dinardapProcessor" class="com.info.dinardap.processor.DinardapProcessor">
+	</bean>
+
+	<bean id="dropAllMessageHeadersStrategy"
+		class="org.apache.camel.component.cxf.common.header.CxfHeaderFilterStrategy">
+		<!-- Set relayHeaders to false to drop all SOAP headers -->
+		<property name="relayHeaders" value="false" />
+	</bean>
+
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" -->
+	<!-- destroy-method="close"> -->
+	<!-- <property name="driverClassName" value="com.mysql.jdbc.Driver" /> -->
+	<!-- <property name="url" value="jdbc:mysql://192.168.149.1:3306/sinardap" 
+		/> -->
+	<!-- <property name="username" value="redhat" /> -->
+	<!-- <property name="password" value="*@@HYP59ec" /> -->
+	<!-- </bean> -->
+
+<!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost/sinardap" />
+		<property name="username" value="root" />
+		<property name="password" value="redhat" />
+	</bean> -->
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/sinardap" />
+		<property name="username" value="root" />
+		<property name="password" value="redhat" />
+	</bean>
+
+	<!-- configure the Camel SQL component to use the JDBC data source -->
+	<bean id="sqlComponent" class="org.apache.camel.component.sql.SqlComponent">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="FilasProcessor" class="com.mycompany.dinardap.db.EntidadFilaProcessor" />
+
+	<camelContext streamCache="true"
+		xmlns="http://camel.apache.org/schema/spring" xmlns:sei="http://sei.dinardap.info.com/"
+		xmlns:ns1="http://www.dinardap.gob.ec/RegistroCivilService/"
+		xmlns:ns2="http://latinus.net/senescyt/types" xmlns:ns3="http://latinus.net/wsDinardap/types"
+		xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+		<propertyPlaceholder location="classpath:sql.properties"
+			id="placeholder" />
+		<!-- <dataFormats> -->
+		<!-- <jaxb contextPath="com.info.dinardap.sei.xsd" prettyPrint="true" id="myJaxb"/> -->
+		<!-- <soapjaxb contextPath="com.info.dinardap.sei.xsd" id="myJaxbSOAP"/> -->
+		<!-- </dataFormats> -->
+
+		<route id="InvocacionWebServices">
+
+			<from uri="cxf:bean:DinardapServiceEndpoint?dataFormat=MESSAGE" />
+
+			<!-- RESUELVE ESTE ERROR Please check the message headers of operationName 
+				and operationNamespace. causado por que los Web services legados tienen Header 
+				diferente al que aca se genera -->
+			<removeHeaders pattern="*" />
+
+			<setHeader headerName="cedula">
+				<xpath resultType="java.lang.String">/soapenv:Envelope/soapenv:Body/sei:validar/cedula/text()</xpath>
+			</setHeader>
+
+			<setHeader headerName="irc">
+				<xpath resultType="java.lang.String">/soapenv:Envelope/soapenv:Body/sei:validar/irc/text()</xpath>
+			</setHeader>
+
+			<setHeader headerName="idusuario">
+				<constant>9999999999</constant>
+			</setHeader>
+
+
+			<log
+				message="La invocación SQL se esta realizando en la fecha: ${date:now:yyyy:MM:dd:HH:mm:ss}" />
+			<to uri="sqlComponent:{{sql.consultaIdInfoPrivada}}" />
+			<log
+				message="La invocación SQL se realizó en la fecha: ${date:now:yyyy:MM:dd:HH:mm:ss}" />
+			<log message="${body}" />
+
+			<setHeader headerName="id_infopriv">
+				<description>El query devuelve una List de HashMaps!!! En el hasmap, los pares son columna=valor</description>
+				<simple>${body[0][id_informacionpriv]}</simple>
+			</setHeader>
+
+			<log
+				message="La invocación SQL Consultar Entidades se esta realizando en la fecha: ${date:now:yyyy:MM:dd:HH:mm:ss}" />
+			<to uri="sqlComponent:{{sql.consultaEntidades}}" />
+			<log
+				message="La invocación SQL Consultar Entidades se realizó en la fecha: ${date:now:yyyy:MM:dd:HH:mm:ss}" />
+			<log message="${body}" />
+
+			<split>
+				<simple>${body}</simple>
+				<setHeader headerName="id_ente_registral">
+					<simple>${body[id_ente_registral]}</simple>
+				</setHeader>
+				<log message="${headers.id_ente_registral}\n" />
+
+				<choice>
+					<when>
+						<simple>${headers.id_ente_registral} == 1</simple>
+						<log message="entro a 1 el piyin" />
+						<to uri="velocity:vm/requestCivil.vm" />
+						<to uri="cxf:bean:wsCivil" />
+						<!-- RESPUESTA DEL WS CIVIL -->
+						<setHeader headerName="responseCivil">
+							<xpath>/soapenv:Envelope/soapenv:Body/ns1:cedulados</xpath>
+						</setHeader>
+						<log message="Ente registrarl = ${headers.id_ente_registral}" />
+						<to uri="sqlComponent:{{sql.consultaCamposPorEntidad}}" />
+						<bean ref="FilasProcessor" />
+						<log
+							message="salio de 1 el piyin ${headers.cedula}  ${headers.responseCivil}" />
+
+					</when>
+					<when>
+						<simple>${headers.id_ente_registral} == 2</simple>
+						<log message="entro a 2 el piyin" />
+						<to uri="velocity:vm/requestSenescyt.vm" />
+						<to uri="cxf:bean:wsSenescyt" />
+						<!-- RESPUESTA DEL WS SENESCYT -->
+						<setHeader headerName="responseSenescyt">
+							<xpath>/soapenv:Envelope/soapenv:Body</xpath>
+						</setHeader>
+
+						<to uri="sqlComponent:{{sql.consultaCamposPorEntidad}}" />
+						<bean ref="FilasProcessor" />
+						<log
+							message="salio de 2 el piyin ${headers.cedula}  ${headers.responseSenescyt}" />
+
+					</when>
+					<when>
+						<simple>${headers.id_ente_registral} == 3</simple>
+						<log message="entro a 3 el piyin" />
+						<to uri="velocity:vm/requestCNE.vm" />
+						<to uri="cxf:bean:wsCNE" />
+						<!-- RESPUESTA DEL WS CNE -->
+
+						<setHeader headerName="responseCNE">
+							<xpath>/soapenv:Envelope/soapenv:Body/ns3:cne</xpath>
+						</setHeader>
+
+						<to uri="sqlComponent:{{sql.consultaCamposPorEntidad}}" />
+						<bean ref="FilasProcessor" />
+						<log
+							message="salio de 3 el piyin ${headers.cedula}  ${headers.responseCNE}" />
+					</when>
+				</choice>
+			</split>
+			<to uri="velocity:vm/respuesta.vm" />
+		</route>
+	</camelContext>
+
+</beans>

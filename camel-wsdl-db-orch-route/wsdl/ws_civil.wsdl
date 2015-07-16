@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="civil_direlEctoralPortType" targetNamespace="http://latinus.net/wsDinardap" xmlns:ns1="http://www.dinardap.gob.ec/RegistroCivilService/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://latinus.net/wsDinardap" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:import location="http://192.168.233.250/civil/ws_civil?wsdl=RegistroCivilService.wsdl" namespace="http://www.dinardap.gob.ec/RegistroCivilService/">
+    </wsdl:import>
+  <wsdl:binding name="civil_direlEctoralPortTypeSoapBinding" type="ns1:RegistroCivilService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getDatosRegistroCivil">
+      <soap:operation soapAction="http://www.dinardap.gob.ec/RegistroCivilService/getDatosRegistroCivil" style="document"/>
+      <wsdl:input name="getDatosRegistroCivil">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getDatosRegistroCivilResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="GetDatosRegistroCivilFaultMsg">
+        <soap:fault name="GetDatosRegistroCivilFaultMsg" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="putDatosRegistroCivil">
+      <soap:operation soapAction="http://www.dinardap.gob.ec/RegistroCivilService/putDatosRegistroCivil" style="document"/>
+      <wsdl:input name="putDatosRegistroCivil">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="putDatosRegistroCivilResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="PutDatosRegistroCivilFaultMsg">
+        <soap:fault name="PutDatosRegistroCivilFaultMsg" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="civil_direlEctoralPortType">
+    <wsdl:port binding="tns:civil_direlEctoralPortTypeSoapBinding" name="RegistroCivilServicePort">
+      <soap:address location="http://192.168.233.250/civil/ws_civil"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
